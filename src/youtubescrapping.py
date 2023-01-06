@@ -6,7 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
-### CODE ###
+### EXTRACT ALL URLS WITH TITLES ###
 
 url = "https://www.youtube.com/@BreakingVlad/videos"
 
@@ -18,12 +18,16 @@ newdict = {}
 with driver:
     driver.get(url)
     driver.maximize_window()
+
+    #Reject cookies
+    element1 = driver.find_element(By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[1]/div[3]/div[1]/form[1]/div/div/button')
+    element1.click()
+    
     time.sleep(7)
     
     SCROLL_PAUSE_TIME = 3
 
     # Get scroll height
-
     last_height = driver.execute_script("return document.documentElement.scrollHeight")
     
     while True:
@@ -40,22 +44,25 @@ with driver:
         last_height = new_height
     
     # Find video title elements by ID
-    elems = driver.find_elements(By.XPATH, '//*[@id="video-title-link"]')
+    element2 = driver.find_elements(By.XPATH, '//*[@id="video-title-link"]')
     
     # For each one save the title and the associated url
-    for elem in elems:
+    for elem in element2:
 
         link = elem.get_attribute("href")
         title = elem.text
         
+        # Append each resulto into a new dictionary
         if link and title != None:
             newdict = {
                 "Title" : title,
                 "Link" : link
             }
         
+        # Transform dict to list
         list_.append(newdict)
-        
+
+    # Close browser    
     driver.close()
 
 df = pd.DataFrame(list_)
