@@ -22,7 +22,9 @@ with driver:
     #Reject cookies
     element1 = driver.find_element(By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[1]/div[3]/div[1]/form[1]/div/div/button')
     element1.click()
-    
+    element2 = driver.find_element(By.XPATH, '//*[@id="chips"]/yt-chip-cloud-chip-renderer[2]')
+    element2.click()
+
     time.sleep(7)
     
     SCROLL_PAUSE_TIME = 3
@@ -44,10 +46,10 @@ with driver:
         last_height = new_height
     
     # Find video title elements by ID
-    element2 = driver.find_elements(By.XPATH, '//*[@id="video-title-link"]')
+    element3 = driver.find_elements(By.XPATH, '//*[@id="video-title-link"]')
     
     # For each one save the title and the associated url
-    for elem in element2:
+    for elem in element3:
 
         link = elem.get_attribute("href")
         title = elem.text
@@ -66,5 +68,9 @@ with driver:
     driver.close()
 
 df = pd.DataFrame(list_)
+
+idlist = [i.split("=")[1] for i in df["Link"]]
+
+df["ID"] = idlist
 
 df.to_csv("./data/videos.csv", index=False)
