@@ -47,13 +47,13 @@ for i,j in zip(df["Link"], df["Corrected Title"]):
         text_file.close()
 
         # Remove mp3 file once finished
-        print("Removing audio file from the system")
+        print("Removing audio file from the system...")
         os.remove(new_file)
 
         #Relax and repeat
-        print(f"Text file successfully generated for {j} ({counter}/668)")
+        print(f"Text file successfully generated for {j} ({counter}/668)\n")
         counter = counter + 1
-        time.sleep(2)
+        time.sleep(5)
 
     except:
         print("Connection problems")
