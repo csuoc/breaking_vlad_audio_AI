@@ -1,45 +1,36 @@
 import pandas as pd
-import time
-import requests
 import os
-from dotenv import load_dotenv
+import time
+from pytube import YouTube
 
-### ID COLUMN ###
+### LOAD CSV ###
 
 df = pd.read_csv("./data/videos.csv")
 
-idlist = [i.split("=")[1] for i in df["Link"]]
+df["Corrected Title"]=df["Title"].str.extract(r"([\w{1,}\s:]+)")
 
-df["ID"] = idlist
+### AUDIO DOWNLOAD WITH PYTUBE ###
 
-### API CONNECTION ###
-
-load_dotenv()
-token_rapidkey = os.getenv("rapidkey")
-token_rapidhost = os.getenv("rapidhost")
-
-urllist = []
-
-headers = {
-    "X-RapidAPI-Key": token_rapidkey,
-    "X-RapidAPI-Host": token_rapidhost
-}
-
-for i in idlist:
-
-    url = "https://youtube-mp36.p.rapidapi.com/dl"
-    querystring = {"id":i}
-
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    response = response.json()
-    time.sleep(2)
-
+for i in df["Link"]:
+    
+    # Video Url
+    yt = YouTube(i)
+  
+    # Extract only audio
+    video = yt.streams.filter(only_audio=True).first()
+  
+    # Check for destination to save file
+    destination = "./espaudios/"
+    
     try:
-        mp3=response["link"]
-        urllist.append(mp3)
+        # Download the file
+        out_file = video.download(output_path=destination)
+    
+        # Save the file
+        base, ext = os.path.splitext(out_file)
+        new_file = base + '.mp3'
+        os.rename(out_file, new_file)
+        time.sleep(2)
     except:
-        break
+        print("Connection problems")
 
-df["Download MP3"] = urllist
-
-df.to_csv("./data/videos.csv", index=False)
