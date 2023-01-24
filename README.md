@@ -6,5 +6,4 @@ Digging into the field of automation and AI, I have written a couple of scripts 
 
 In the following video you can see an example of how it would look like. Thank you very much Vladimir for the opportunity.
 
-https://user-images.githubusercontent.com/20581587/214352320-e8d520cd-90e8-495d-a348-b22efe74143a.mp4
-
+https://user-images.githubusercontent.com/20581587/214352603-e595d659-eede-44f9-b4f4-76da875d00b0.mp4
