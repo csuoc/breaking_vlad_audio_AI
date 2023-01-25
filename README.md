@@ -1,4 +1,4 @@
-# Automatic extraction, transcription and translation of a Youtube channel using Python and Artificial Intelligence.
+# Automatic extraction, transcription and translation of Youtube channel's videos using Python and Artificial Intelligence.
 
 I keep learning and progressing. These last weeks I have had the honour of collaborating with Vladimir Sánchez Gonzaga, CEO of **BreakingVlad** (https://breakingvlad.com/) with more than 350.000 subscribers on Youtube, for the expansion of his educational project in English.
 
